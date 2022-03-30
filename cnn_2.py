@@ -22,21 +22,12 @@ class mnist_cnn():
         init_n_flters = hp.Choice('n_filters', [4, 8, 16])
         n_filters_growth_factor = hp.Choice('n_filters_growth_factor', [2, 4, 8])
 
-        x = Conv2D(init_n_flters, 3, strides=(1, 1), activation='relu', padding='valid')(x)
-
-        for i in range(0, network_depth):
-            x = Conv2D(16, 3, strides=(1, 1), activation='relu', padding='valid')(x)
 
         for i in range(0, network_depth):
             depth = (n_filters_growth_factor ** i) * init_n_flters
             x = Conv2D(depth, 3, strides=(1, 1), activation='relu', padding='valid')(x)
             conv_dropout_k = hp.Choice('conv_dropout_' + str(i), [0.0, 0.25, 0.5])
             x = Dropout(conv_dropout_k)(x)
-
-        kernel_size = hp.Choice('units_kernel1', [3, 5, 7])
-        x = Conv2D(hp.Choice('units_conv1', [8, 16, 32]), (kernel_size, kernel_size), strides=(1, 1),
-                   padding=hp.Choice('padding', ['same', 'valid']),
-                   activation=hp.Choice('activation_conv1', ['relu', 'tanh']))(input)
 
         x = Flatten()(x)
 
