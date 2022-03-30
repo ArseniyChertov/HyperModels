@@ -101,7 +101,7 @@ for i in range(0, folds):
     tuner = kt.RandomSearch(
         model.initialize,
         objective='val_loss',
-        max_trials=3
+        max_trials=50
     )
 
     tuner.search(X_train, y_train, epochs=10, validation_data=(X_val, y_val))
