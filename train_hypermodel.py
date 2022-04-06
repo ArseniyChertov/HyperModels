@@ -107,10 +107,11 @@ for i in range(0, folds):
     tuner.search(X_train, y_train, epochs=10, validation_data=(X_val, y_val))
 
     model = tuner.get_best_models()[0]
-
+    print(tuner.get_best_hyperparameters()[0].values)
+    print(model.summary())
     # best_hyperparameters = tuner.get_best_hyperparameters()[0]
     # model = model.initialize(best_hyperparameters)
-    print(model.summary())
+    
     # print(tuner.results_summary())
     exit()
 
